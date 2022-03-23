@@ -59,3 +59,36 @@ pom.xml # maven project settings
 - key - value 형태의 값을 정의하면 애플리케이션에서 참조하여 사용함 ( properties )
 - yaml 기반 구성 파일을 사용할 수 있음 ( 계층적 구성 데이터에 용이 ) - ( yml )
 - 프로젝트에서 값을 참조할 때, `@value` annotation을 사용하여 값을 받아올 수 있음
+
+## Controller
+
+### annotation
+
+### `@Controller`
+- @Component을 구체화한 어노테이션
+- Spring Framework에서 이를 통해 클래스 경로 스캐닝을 하여 Controller로 사용함을 인지
+- 필요한 비즈니스 로직을 호출하여 전달할 모델과 이동할 뷰 정보를 에 반환함
+
+### `@RestController`
+- Spring MVC Controller에 @ResponseBody가 추가된 것
+- JSON 형태로 객체 데이터를 반환하는것이 주 용도
+
+### `@RequestMapping`
+
+```java
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class Test Controller {
+    @RequestMapping(method = RequestMethod.GET, path = "/pathname")
+    public String SomeController() {
+        return "some return string";
+    }
+}
+```
+
+- api요청 url과 handler를 매핑하는 어노테이션
+- GET, POST, DELETE, PUT 등의 MethodMapping으로 대체 가능
+
