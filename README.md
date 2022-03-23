@@ -25,3 +25,28 @@
 | POST        | /users/{id}/posts            | 특정 유저의 새 게시글 생성  |
 | DELETE      | /users/{id}                  | 특정 유저 삭제         |
 | DELETE      | /users/{id}/postsp/{post_id} | 특정 유저의 특정 게시글 삭제 |
+
+### Intellij dependency path
+```bash
+Drive:\Users\User\.m2\repository\org\springframework
+```
+
+### Maven Project Structure
+```markdown
+└─src
+    ├─main # java sources
+    │  ├─java # class files
+    │  │  └─com
+    │  │      └─example
+    │  │          └─restapi
+    │  └─resources # resource & environment files
+    │      ├─static
+    │      └─templates
+    └─test # unit test code
+        └─java
+            └─com
+                └─example
+                    └─restapi
+pom.xml # maven project settings
+...
+```
