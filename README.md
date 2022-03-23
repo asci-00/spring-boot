@@ -47,6 +47,15 @@ Drive:\Users\User\.m2\repository\org\springframework
             └─com
                 └─example
                     └─restapi
+...
 pom.xml # maven project settings
 ...
 ```
+
+### `application.properties`
+
+> spring 프로젝트 외부 설정 파일 (properties -> yml)
+
+- key - value 형태의 값을 정의하면 애플리케이션에서 참조하여 사용함 ( properties )
+- yaml 기반 구성 파일을 사용할 수 있음 ( 계층적 구성 데이터에 용이 ) - ( yml )
+- 프로젝트에서 값을 참조할 때, `@value` annotation을 사용하여 값을 받아올 수 있음
