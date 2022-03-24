@@ -3,6 +3,7 @@ package com.example.restapi.user;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,8 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping("/users")
-    public MappingJacksonValue retrieveAllUsers() {
+    @GetMapping("/v1/users")
+    public MappingJacksonValue retrieveAllUsersV1() {
         List<User> users = service.findAll();
 
         SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
@@ -35,8 +36,16 @@ public class UserController {
         return mapping;
 
     }
+//    일반 브라우저에서 uri 로 version 핸들링 하는 방식 (Twitter, Amazone)
+//    @GetMapping("/users/{id}") => GET /users/1 => 1 is String But Converted
+//    @GetMapping("/v1/users/{id}") => GET /v1/users/1
 
-    @GetMapping("/users/{id}") // GET /user/1 => 1 is String But Converted
+//    전송할 때, header에 version 정보를 기입하는 핸들링 방식 (Github, Microsoft)
+//    @GetMapping(value="/users/{id}", params="version=1") => GET /users/1?version=1
+//    @GetMapping(value="/users/{id}", headers="X-API-VERSION=1") => headers include X-API-VERSION
+
+//    headers include [Accept = application/vnd.company.appv1+json] (mime-type version handling)
+    @GetMapping(value="/users/{id}", produces="application/vnd.company.appv1+json")
     public MappingJacksonValue retrieveUser(@PathVariable int id) {
         User user = service.findOne(id);
 
@@ -49,6 +58,33 @@ public class UserController {
 
         FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", filter);
         MappingJacksonValue mapping = new MappingJacksonValue(user);
+
+        mapping.setFilters(filters);
+
+        return mapping;
+    }
+
+//    @GetMapping("/v2/users/{id}") => GET /v2/users/1
+//    @GetMapping(value="/users/{id}", params="version=2") => GET /users/1?version=2
+//    @GetMapping(value="/users/{id}", headers="X-API-VERSION=2")
+
+    @GetMapping(value="/users/{id}", produces="application/vnd.company.appv2+json")
+    public MappingJacksonValue retrieveAllUsersV2(@PathVariable int id) {
+        User user = service.findOne(id);
+
+        if(user == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
+                .filterOutAllExcept("id", "name", "joinDate", "grade");
+
+        UserV2 userV2 = new UserV2();
+        BeanUtils.copyProperties(user, userV2);
+        userV2.setGrade("VIP");
+
+        FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfoV2", filter);
+        MappingJacksonValue mapping = new MappingJacksonValue(userV2);
 
         mapping.setFilters(filters);
 
