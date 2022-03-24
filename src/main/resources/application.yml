@@ -8,3 +8,5 @@ logging:
 spring:
   messages:
     basename: language
+  main:
+    allow-bean-definition-overriding: true
