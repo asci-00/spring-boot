@@ -70,8 +70,9 @@ pom.xml # maven project settings
 - 필요한 비즈니스 로직을 호출하여 전달할 모델과 이동할 뷰 정보를 에 반환함
 
 ### `@RestController`
-- Spring MVC Controller에 @ResponseBody가 추가된 것
-- JSON 형태로 객체 데이터를 반환하는것이 주 용도
+- Spring MVC Controller에 `@ResponseBody`가 추가된 것
+- View를 갖지 않으며, REST Data를 반환하는 것이 주 목적
+- (JSON/XML 형태로 객체 데이터를 반환하는것이 주 용도)
 
 ### `@RequestMapping`
 
@@ -92,3 +93,13 @@ public class Test Controller {
 - api요청 url과 handler를 매핑하는 어노테이션
 - GET, POST, DELETE, PUT 등의 MethodMapping으로 대체 가능
 
+
+### DispathcerServlet
+
+> 클라이언트의 모든 요청을 한 곳으로 받아서 처리
+> 
+> 요청에 맞는 Handler로 요청을 전달하는 역할
+> 
+> Handler의 처리 결과를 Http Response 형태로 만들어서 반환
+
+![img.png](img.png)
