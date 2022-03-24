@@ -60,9 +60,7 @@ pom.xml # maven project settings
 - yaml 기반 구성 파일을 사용할 수 있음 ( 계층적 구성 데이터에 용이 ) - ( yml )
 - 프로젝트에서 값을 참조할 때, `@value` annotation을 사용하여 값을 받아올 수 있음
 
-## Controller
-
-### annotation
+## annotation
 
 ### `@Controller`
 - @Component을 구체화한 어노테이션
@@ -94,7 +92,9 @@ public class Test Controller {
 - GET, POST, DELETE, PUT 등의 MethodMapping으로 대체 가능
 
 
-### DispathcerServlet
+---
+
+### `DispathcerServlet`
 
 > 클라이언트의 모든 요청을 한 곳으로 받아서 처리
 > 
@@ -103,3 +103,65 @@ public class Test Controller {
 > Handler의 처리 결과를 Http Response 형태로 만들어서 반환
 
 ![img.png](img.png)
+
+### `HATEOAS` *Hypermedia As the Engine Of Application State*
+> 현재 리소스와 연관된 (호출 가능한) 자원 상태 정보를 제공
+> 
+> pom.xml 패키지 설치 필요
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-hateoas</artifactId>
+</dependency>
+```
+
+### `response`
+```json
+{
+  "id": 1,
+  "name": "user1",
+  "joinDate" : "2020-01-12",
+  "_links": {
+    "mapping_name": {
+      "href": "http://localhost:8088/users"
+    }
+  }
+}
+
+```
+
+![img_1.png](img_1.png)
+
+
+### `Swagger`
+> 
+> 
+
+```xml
+<dependency>
+    <groupId>io.spingfox</groupId>
+    <artifactId>springfox=swagger2</artifactId>
+    <version>2.9.2</version>
+</dependency>
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>2.9.2</version>
+</dependency>
+```
+
+```java
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2);
+    }
+}
+```
+
+### [참조]
+### `단축키`
+- `Ctrl + Alt + V` 인스턴스를 임시 변수를 생성하여 대입 
