@@ -80,7 +80,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class Test Controller {
+public class TestController {
     @RequestMapping(method = RequestMethod.GET, path = "/pathname")
     public String SomeController() {
         return "some return string";
@@ -93,6 +93,8 @@ public class Test Controller {
 
 
 ---
+
+## Framework & Library
 
 ### `DispathcerServlet`
 
@@ -135,8 +137,8 @@ public class Test Controller {
 
 
 ### `Swagger`
-> 
-> 
+
+> REST Web Service 설계, 빌드, 문서화 등의 업무를 지원하는 프레임워크
 
 ```xml
 <dependency>
@@ -161,6 +163,17 @@ public class SwaggerConfig {
     }
 }
 ```
+
+### `JPA`
+> Java Persistence API
+> 
+> Java ORM 기술에 대한 API 표준 명세 (RDB 사용 방식을 정의)
+> 
+> EntityManager를 통한 CRUD 처리
+> 
+> `Hibernate` JPA의 구현체 (생산성, 유지보수, 비종속성 유리)
+> 
+> `Spring Data JPA` JPA를 추상화한 Repository 인터페이스 제공
 
 ### [참조]
 ### `단축키`
