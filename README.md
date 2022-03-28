@@ -26,6 +26,56 @@
 | DELETE      | /users/{id}                  | 특정 유저 삭제         |
 | DELETE      | /users/{id}/postsp/{post_id} | 특정 유저의 특정 게시글 삭제 |
 
+![img_1.png](img_1.png)
+
+### `Level0`
+- rest style로 soap web service 구현
+- URI에 부적절한 resource 노출 
+```markdown
+GET     http://server/getPosts
+POST    http://server/deletePosts
+GET     http://server/doSomthing
+```
+
+### `Level1`
+- 적절한 URI로 resource 노출
+- 부적절한 HTTP Method 사용 & 부적절한 상태코드 사용
+```markdown
+GET     http://server/posts
+POST    http://server/posts/1   # delete post id = 1
+POST    http://server/posts/1   # update post id = 1
+```
+
+### `Level2`
+- Level1 + 적절한 HTTP Method 사용
+```markdown
+GET     http://server/posts/1
+DELETE  http://server/posts/1
+POST    http://server/posts/1
+```
+
+### `Level3`
+- Level2 + HATEOAS 등을 통해 호출 가능한 action 명시
+
+```mardown
+
+❓ RESTful web service best practices
+
+- 고객 (API 사용자) 입장의 인터페이스
+- HTTP 기능을 최대한 활용
+    - 적절한 HTTP Method
+    - 적절한 Response Status
+- URI에 민감정보 노출하지 않기
+- 복수형태의 Resource URI 사용
+    /user     =>  /users
+    /user/1   =>  /users/1
+- Resource 는 명사형태로 사용
+- URI는 일관된 접근방식으로 정의한다
+
+```
+
+
+
 ### Intellij dependency path
 ```bash
 Drive:\Users\User\.m2\repository\org\springframework
@@ -132,9 +182,6 @@ public class TestController {
 }
 
 ```
-
-![img_1.png](img_1.png)
-
 
 ### `Swagger`
 
